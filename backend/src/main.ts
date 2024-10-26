@@ -10,6 +10,8 @@ async function bootstrap() {
 
   // Use global HTTP exception filter
   app.useGlobalFilters(new HttpExceptionFilter());
+  // Enable CORS
+  app.enableCors();
 
   // Set up Swagger
   const config = new DocumentBuilder()

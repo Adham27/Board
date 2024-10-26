@@ -27,13 +27,13 @@ export class MemberController {
     return this.memberService.findById(id);
   }
   
-  // // New endpoint to get only active members
-  // @Get('active')
-  // @ApiOperation({ summary: 'Retrieve all active members' })
-  // @ApiResponse({ status: 200, description: 'All active members retrieved successfully', type: [Member] })
-  // async findAllActive(): Promise<Member[]> {
-  //   return this.memberService.findAllActive();
-  // }
+  // New endpoint to get only active members
+  @Get('active')
+  @ApiOperation({ summary: 'Retrieve all active members' })
+  @ApiResponse({ status: 200, description: 'All active members retrieved successfully', type: [Member] })
+  async findAllActive(): Promise<Member[]> {
+    return this.memberService.findAllActive();
+  }
 
   @Post()
   @ApiOperation({ summary: 'Create a new member' })

@@ -24,6 +24,6 @@ export class Member {
     @Column({ type: 'enum', enum: ['UNCLAIMED', 'FIRST_CONTACT', 'PREPARING_WORK_OFFER', 'SEND_TO_THERAPIST'] })
     status: string;
 
-    @Column({ default: true })
+    @Column({ type: 'boolean', default: true })
     is_active: boolean;
 }

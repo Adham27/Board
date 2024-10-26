@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-// import { Injectable, NotFoundException, ConflictException, InternalServerErrorException } from '@nestjs/common';
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, InternalServerErrorException } from '@nestjs/common';
+//import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Member } from './entities/member.entity';
@@ -33,10 +33,18 @@ export class MemberService extends BaseService<Member> {
     return member;
   }
   
-  // Use findAllByCondition to get active members
-    async findAllActive(): Promise<Member[]> {
-      return this.findAllByCondition({ is_active: true });
+  async findAllActive(): Promise<Member[]> {
+    try {
+      return await this.memberRepository
+        .createQueryBuilder('member')
+        .where('member.is_active = :is_active', { is_active: true })
+        .getMany();
+    } catch (error) {
+      console.error('Error fetching active members with QueryBuilder:', error.message);
+      throw new InternalServerErrorException('Unable to fetch active members');
     }
+  }
+
 
   
   async update(id: string, updateMemberDto: UpdateMemberDto): Promise<Member> {
